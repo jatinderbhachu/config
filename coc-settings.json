@@ -1,0 +1,24 @@
+{
+  "languageserver": {
+    "clangd": {
+      "command": "clangd",
+      "rootPatterns": ["compile_commands.json"],
+      "filetypes": ["cpp", "c"],
+      "trace.server": "verbose"
+    }
+  },
+  "snippets.extends": {
+      "cpp": ["c"],
+      "javascriptreact": ["javascript"],
+      "typescript": ["javascript"]
+  },
+
+  "suggest.noselect": false,
+  "suggest.echodocSupport": true,
+  "suggest.enablePreview": true,
+  "diagnostic.refreshOnInsertMode": true,
+  "html.enable": true,
+  "html.filetypes": ["html", "handlebars", "razor"],
+  "html.format.enable": true,
+  "emmet.includeLanguages": {"vue-html": "html"}
+}
