@@ -33,9 +33,9 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
 Plug 'tpope/vim-vinegar'
-" Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-repeat'
-" Plug 'liuchengxu/vim-clap'
+
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
 Plug 'preservim/nerdcommenter'
 
@@ -190,3 +190,4 @@ map <C-W>c <Plug>(wintabs_close_window)
 map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
+
