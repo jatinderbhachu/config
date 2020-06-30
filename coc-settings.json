@@ -1,12 +1,4 @@
 {
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "rootPatterns": ["compile_commands.json"],
-      "filetypes": ["cpp", "c"],
-      "trace.server": "verbose"
-    }
-  },
   "snippets.extends": {
       "cpp": ["c"],
       "javascriptreact": ["javascript"],
@@ -20,5 +12,7 @@
   "html.enable": true,
   "html.filetypes": ["html", "handlebars", "razor"],
   "html.format.enable": true,
-  "emmet.includeLanguages": {"vue-html": "html"}
+  "emmet.includeLanguages": {"vue-html": "html"},
+  "eslint.options": {"configFile": "C:/Users/jatin/.eslintrc.json"}
+  
 }

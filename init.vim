@@ -2,9 +2,9 @@ filetype plugin indent on
 syntax on
 set hidden
 " show existing tab with 4 spaces width
-set tabstop=2
+set tabstop=4
 " when indenting with '>', use 4 spaces width
-set shiftwidth=2
+set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 set backspace=indent,eol,start
@@ -18,6 +18,8 @@ set signcolumn=yes
 set noruler
 set linebreak
 set whichwrap+=<,>,h,l,[,]
+
+
 set nobackup
 set nowritebackup
 set noswapfile
@@ -30,12 +32,20 @@ set splitright
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'tikhomirov/vim-glsl'
+Plug 'derekwyatt/vim-fswitch'
+
 Plug 'zefei/vim-wintabs'
 Plug 'zefei/vim-wintabs-powerline'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 
+"Plug 'Yggdroot/indentLine'
+"Plug 'lukas-reineke/indent-blankline.nvim'
+
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'vn-ki/coc-clap'
 
 Plug 'preservim/nerdcommenter'
 
@@ -69,6 +79,7 @@ Plug 'w0ng/vim-hybrid'
 Plug 'tpope/vim-vividchalk'
 Plug 'aonemd/kuroi.vim'
 
+Plug 'hardcoreplayers/oceanic-material'
 Plug 'lokaltog/vim-distinguished'
 Plug 'srcery-colors/srcery-vim'
 Plug 'jaredgorski/SpaceCamp'
@@ -78,7 +89,7 @@ call plug#end()
 
 set background=dark
 set list listchars=tab:»\ ,trail:·
-colorscheme srcery
+colorscheme oceanic_material
 
 "auto save sessions
 let g:startify_session_persistence = 1
@@ -180,7 +191,11 @@ highlight EndOfBuffer ctermfg=black ctermbg=black
 nmap <A-Left> <C-w>h
 nmap <A-Right> <C-w>l
 
-map <C-tab> <Plug>(wintabs_next)
+map <leader>l :FSRight<cr>
+
+" support for .vs, .fs files for glsl shaders
+autocmd! BufNewFile,BufRead *.vs,*.fs,*.cs set ft=glsl
+
 map <C-H> <Plug>(wintabs_previous)
 map <C-L> <Plug>(wintabs_next)
 map <C-T>c <Plug>(wintabs_close)
@@ -190,4 +205,6 @@ map <C-W>c <Plug>(wintabs_close_window)
 map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
+
+nnoremap <C-p> :Clap filer<CR>
 
