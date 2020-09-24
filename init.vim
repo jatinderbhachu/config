@@ -2,9 +2,16 @@ filetype plugin indent on
 syntax on
 set hidden
 " show existing tab with 4 spaces width
-set tabstop=4
+set tabstop=2
 " when indenting with '>', use 4 spaces width
-set shiftwidth=4
+set shiftwidth=2
+
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType python setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType cpp setlocal ts=4 sts=4 sw=4
+autocmd FileType c setlocal ts=4 sts=4 sw=4
+
 " On pressing tab, insert 4 spaces
 set expandtab
 set backspace=indent,eol,start
@@ -20,6 +27,10 @@ set linebreak
 set whichwrap+=<,>,h,l,[,]
 
 
+set foldmethod=indent
+set foldlevelstart=99
+
+
 set nobackup
 set nowritebackup
 set noswapfile
@@ -31,27 +42,34 @@ set splitright
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+
+"Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'norcalli/typeracer.nvim'
+
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'tikhomirov/vim-glsl'
 Plug 'derekwyatt/vim-fswitch'
-
 Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs-powerline'
+Plug 'roman/golden-ratio'
+"Plug 'zefei/vim-wintabs-powerline'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 
 "Plug 'Yggdroot/indentLine'
 "Plug 'lukas-reineke/indent-blankline.nvim'
 
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'vn-ki/coc-clap'
 
 Plug 'preservim/nerdcommenter'
 
+" automatic window resizing and animation
 Plug 'camspiers/animate.vim'
+"Plug 'camspiers/lens.vim'
+
 Plug 'lambdalisue/fern.vim'
-Plug 'camspiers/lens.vim'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich'
@@ -61,9 +79,9 @@ Plug 'psliwka/vim-smoothie'
 Plug 'matze/vim-move'
 Plug 'rhysd/vim-clang-format'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+Plug 'hardcoreplayers/spaceline.vim'
 " Language packs
 Plug 'sheerun/vim-polyglot'
 
@@ -85,11 +103,13 @@ Plug 'srcery-colors/srcery-vim'
 Plug 'jaredgorski/SpaceCamp'
 
 
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 set background=dark
 set list listchars=tab:»\ ,trail:·
-colorscheme oceanic_material
+"colorscheme oceanic_material
+colorscheme srcery
 
 "auto save sessions
 let g:startify_session_persistence = 1
@@ -98,19 +118,19 @@ let g:startify_bookmarks = [ '~/AppData/Local/nvim/init.vim',  '~/AppData/Local/
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
 
-hi Search guibg=#111111 guifg=#C5B569
-hi CocHighlightText  guibg=#222222 ctermbg=223
-hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
-if !has('gui_running') | hi normal guibg=#181818 | endif
+"hi Search guibg=#111111 guifg=#C5B569
+"hi CocHighlightText  guibg=#222222 ctermbg=223
+"hi CocCursorRange guibg=#b16286 guifg=#ebdbb2
+"if !has('gui_running') | hi normal guibg=#181818 | endif
 " call matchadd('ColorColumn', '\%81v', 100)
-hi ColorColumn ctermbg=magenta ctermfg=0 guibg=#333333
-hi HighlightedyankRegion term=bold ctermbg=0 guibg=#13354A
+"hi ColorColumn ctermbg=magenta ctermfg=0 guibg=#333333
+"hi HighlightedyankRegion term=bold ctermbg=0 guibg=#13354A
 
 
-highlight CocErrorSign   guifg=#ff0000
-highlight CocWarningSign guifg=#ff922b
-highlight CocInfoSign    guifg=#ff922b
-highlight CocHintSign    guifg=#15aabf
+"highlight CocErrorSign   guifg=#ff0000
+"highlight CocWarningSign guifg=#ff922b
+"highlight CocInfoSign    guifg=#ff922b
+"highlight CocHintSign    guifg=#15aabf
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -169,6 +189,7 @@ nmap <F2> <Plug>(coc-rename)
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+nmap <A-S-F> <Plug>(coc-format)
 
 let g:coc_global_extensions = [
   \ 'coc-snippets',
@@ -205,6 +226,12 @@ map <C-W>c <Plug>(wintabs_close_window)
 map <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
+
+let g:clap_layout = { 'relative': 'editor', 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }
+
+let g:golden_ratio_autocommand = 0
+let g:golden_ratio_exclude_nonmodifiable = 1
+
 
 nnoremap <C-p> :Clap filer<CR>
 
