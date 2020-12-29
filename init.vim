@@ -6,6 +6,8 @@ set tabstop=2
 " when indenting with '>', use 4 spaces width
 set shiftwidth=2
 
+set guifont=CascadiaCode\ Nerd\ Font:h14
+
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd FileType python setlocal ts=2 sts=2 sw=2
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
@@ -25,38 +27,48 @@ set signcolumn=yes
 set noruler
 set linebreak
 set whichwrap+=<,>,h,l,[,]
-
-
+set sessionoptions="globals"
 set foldmethod=indent
 set foldlevelstart=99
-
-
 set nobackup
 set nowritebackup
 set noswapfile
 set termguicolors
-autocmd BufEnter * silent! lcd %:p:h
-"save file when exiting insert mode
-autocmd InsertLeave * update
 set splitright
+
+autocmd BufEnter * silent! lcd %:p:h
+
+
+let mapleader=" "
+nnoremap <SPACE> <Nop>
+
+
+"disable ~ at end of buffer
+highlight EndOfBuffer ctermfg=black ctermbg=black
 
 call plug#begin('~/.vim/plugged')
 
 
 "Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter'
 
-Plug 'norcalli/typeracer.nvim'
 
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'tikhomirov/vim-glsl'
 Plug 'derekwyatt/vim-fswitch'
+
+
 Plug 'zefei/vim-wintabs'
-Plug 'roman/golden-ratio'
-"Plug 'zefei/vim-wintabs-powerline'
+Plug 'zefei/vim-wintabs-powerline'
+"Plug 'romgrk/barbar.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+
+"Plug 'roman/golden-ratio'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 
+Plug 'ms-jpq/chadtree'
 "Plug 'Yggdroot/indentLine'
 "Plug 'lukas-reineke/indent-blankline.nvim'
 
@@ -68,8 +80,6 @@ Plug 'preservim/nerdcommenter'
 " automatic window resizing and animation
 Plug 'camspiers/animate.vim'
 "Plug 'camspiers/lens.vim'
-
-Plug 'lambdalisue/fern.vim'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-sandwich'
@@ -101,19 +111,35 @@ Plug 'hardcoreplayers/oceanic-material'
 Plug 'lokaltog/vim-distinguished'
 Plug 'srcery-colors/srcery-vim'
 Plug 'jaredgorski/SpaceCamp'
+Plug 'sainnhe/sonokai'
+
+Plug 'aonemd/kuroi.vim'
 
 
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
+
+
+luafile ~/AppData/Local/nvim/treesitter.lua
+
 set background=dark
 set list listchars=tab:»\ ,trail:·
-"colorscheme oceanic_material
-colorscheme srcery
+let g:sonokai_style = 'shusia'
+let g:sonokai_enable_italic = 1
+let g:sonokai_disable_italic_comment = 1
+let g:sonokai_current_word = 'grey background'
+
+colorscheme sonokai
+
+"colorscheme srcery
 
 "auto save sessions
 let g:startify_session_persistence = 1
 let g:startify_bookmarks = [ '~/AppData/Local/nvim/init.vim',  '~/AppData/Local/nvim/ginit.vim', '~/Documents/Game/Main.cpp', '~/Documents/projects', '~/Desktop/' ]
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 0
 
 vmap ++ <plug>NERDCommenterToggle
 nmap ++ <plug>NERDCommenterToggle
@@ -188,7 +214,7 @@ nmap <F2> <Plug>(coc-rename)
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
 nmap <A-S-F> <Plug>(coc-format)
 
 let g:coc_global_extensions = [
@@ -205,33 +231,27 @@ let g:coc_global_extensions = [
 nnoremap <esc> :noh<return><esc>
 
 
-"disable ~ at end of buffer
-highlight EndOfBuffer ctermfg=black ctermbg=black
-
 " Quick window switching
 nmap <A-Left> <C-w>h
 nmap <A-Right> <C-w>l
 
-map <leader>l :FSRight<cr>
-
 " support for .vs, .fs files for glsl shaders
 autocmd! BufNewFile,BufRead *.vs,*.fs,*.cs set ft=glsl
 
-map <C-H> <Plug>(wintabs_previous)
-map <C-L> <Plug>(wintabs_next)
-map <C-T>c <Plug>(wintabs_close)
-map <C-T>u <Plug>(wintabs_undo)
-map <C-T>o <Plug>(wintabs_only)
-map <C-W>c <Plug>(wintabs_close_window)
-map <C-W>o <Plug>(wintabs_only_window)
+nmap <C-H> <Plug>(wintabs_previous)
+nmap <C-L> <Plug>(wintabs_next)
+nmap <C-T>c <Plug>(wintabs_close)
+nmap <C-T>u <Plug>(wintabs_undo)
+nmap <C-T>o <Plug>(wintabs_only)
+nmap <C-W>c <Plug>(wintabs_close_window)
+nmap <C-W>o <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 
+
+nmap <leader>v <cmd>CHADopen<cr>
+
 let g:clap_layout = { 'relative': 'editor', 'width': '67%', 'height': '33%', 'row': '33%', 'col': '17%' }
-
-let g:golden_ratio_autocommand = 0
-let g:golden_ratio_exclude_nonmodifiable = 1
-
 
 nnoremap <C-p> :Clap filer<CR>
 
